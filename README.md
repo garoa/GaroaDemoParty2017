@@ -1,5 +1,5 @@
 # GaroaDemoParty2017
-Invitation to the Garoa Demo Party 2017 to be held at Garoa Hacker Clube on October 20th/21st, 2017
+Invitation to the Garoa Demo Party 2017 to be held at Garoa Hacker Clube on December 1st/2nd, 2017 (The actual date for the party has not yet been decided. Stay tuned!)
 
 More info at https://garoa.net.br/wiki/Garoa_Demo_Party_2017
 
