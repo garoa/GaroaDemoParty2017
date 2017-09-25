@@ -5,8 +5,10 @@ var DEBUG = true
 var renderer
 var scene
 var sprites = {}
+var gui
 
 //Common PXIjs Aliases
+var ticker = PIXI.ticker.shared;
 var textureCache = PIXI.utils.TextureCache
 var autoDetectRenderer = PIXI.autoDetectRenderer
 var loader = PIXI.loader
@@ -47,8 +49,11 @@ function createScene(){
     )
     renderer.backgroundColor = 0x004425
     renderer.view.id = "view"       
-    if (DEBUG)
+    if (DEBUG){
         renderer.view.style.border = "1px solid #fff"
+        gui = gui = new dat.GUI()
+        gui.useLocalStorage = false
+    }
     renderer.view.style.position = 'absolute';
     renderer.view.style.left = '50%';
     renderer.view.style.top = '50%';
@@ -58,25 +63,32 @@ function createScene(){
     scene = new Container()    
     sprites.party_logo.anchor.set(0.5, 0.5)    
     sprites.party_logo.position.set( renderer.view.width/2.0, renderer.view.height/2.0)
+    
+    sprites.party_logo.fade_in_time = 5; //seconds
+    sprites.party_logo.alpha = 0;
+    
+    folder = gui.addFolder('1. Logo fadein');
+        folder.add(sprites.party_logo, 'fade_in_time', 1, 15)
+        folder.add(sprites.party_logo, 'alpha', 0, 1)
+        /*folder.add(displacementFilter, 'enabled').onChange(trackEvent.bind(folder));
+        folder.add(displacementFilter.scale, 'x', 1, 200).name('scale.x');
+        folder.add(displacementFilter.scale, 'y', 1, 200).name('scale.y');    */
+
     scene.addChild(sprites.party_logo);
 
     sprites.lighting.visible = false;
     scene.addChild(sprites.lighting);
-
-    //start scene
-    logInfo("Playing!");
-    sceneLoop()
-}
-
-
-function updateState(){    
     
+    ticker.add(updateAndRender);
+    ticker.start();
+    logInfo("Playing!");
 }
 
 
-function sceneLoop() {
-    requestAnimationFrame(sceneLoop);
-    updateState();
+function updateAndRender(){        
+    debugger    
+    sprites.party_logo.position.y += 0.3 * ticker.deltaTime;
+    sprites.party_logo.alpha += (1/sprites.party_logo.fade_in_time/60) * ticker.deltaTime
     renderer.render(scene)
 }
 
