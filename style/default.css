@@ -1,0 +1,15 @@
+/* default styles */
+* {
+    padding: 0; 
+    margin: 0
+}
+
+body{
+    overflow: hidden;
+    background-color: #004425;
+}
+
+#view-container{
+    margin: 0 auto;
+    display: block;
+}
